@@ -4,6 +4,13 @@
     <title>Student List</title>
 </head>
 <body>
+    {% if user.is_authenticated %}
+    <p>Logged in as: {{ user.username }}</p>
+    <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+{% endif %}
     <a href="{% url 'student_dashboard' %}">Student Dashboard</a>
     <h1>Registered Students</h1>
     <a href="{% url 'student_create' %}">Register Student</a>

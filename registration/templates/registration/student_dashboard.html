@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <h1>Student Dashboard</h1>
+
+    <h2>Total Students</h2>
+    <p>{{ total_students }}</p>
+    <hr>
+
+    <h2>Students by Program</h2>
+    <table border="1">
+        <tr>
+            <th>Program</th>
+            <th>Total</th>
+        </tr>
+        {% for item in program_summary %}
+        <tr>
+            <td>{{ item.program }}</td>
+            <td>{{ item.total }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No program data available.</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+
+    <h2>Students by Year Level</h2>
+    <table border="1">
+        <tr>
+            <th>Year Level</th>
+            <th>Total</th>
+        </tr>
+        {% for item in year_summary %}
+        <tr>
+            <td>{{ item.year_level }}</td>
+            <td>{{ item.total }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No year-level data available.</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+
+    <a href="{% url 'student_list' %}">Back to Student List</a>
+</body>
+</html>

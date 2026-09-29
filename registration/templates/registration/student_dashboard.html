@@ -1,6 +1,4 @@
 {% load static %}
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,36 +6,54 @@
 </head>
 <body>
     <h1>Student Dashboard</h1>
-    <h2>
-    Total Students:
-    <span id="student-count">0</span>
-</h2>
 
-<button id="refresh-students">Refresh Students</button>
+    <!-- Search & Filter Controls -->
+    <section>
+        <label for="student-search">Search name or email:</label>
+        <input 
+            type="search" 
+            id="student-search" 
+            placeholder="Type a name or email"
+        >
 
-<p id="loading-message">Loading students...</p>
+        <label for="program-filter">Filter by program:</label>
+        <select id="program-filter">
+            <option value="">All programs</option>
+        </select>
 
-<p id="error-message"></p>
+        <button type="button" id="clear-filters">
+            Clear Filters
+        </button>
 
-<table border="1" id="student-table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Program</th>
-            <th>Year Level</th>
-            <th>Email</th>
-        </tr>
-    </thead>
+        <button type="button" id="refresh-students">
+            Refresh Data
+        </button>
+    </section>
 
-    <tbody id="student-table-body">
-    </tbody>
-</table>
+    <p id="result-count" aria-live="polite">Showing 0 students</p>
 
-    <h2>Total Students</h2>
-    <p>{{ total_students }}</p>
+    <!-- ✅ NEW: AJAX Student Table (dynamically populated) -->
+    <h2>Student Records</h2>
+    <h3>Total Students: <span id="student-count">0</span></h3>
+    <p id="loading-message">Loading students...</p>
+    <p id="error-message"></p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Program</th>
+                <th>Year Level</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="student-table-body"></tbody>
+    </table>
+
     <hr>
 
+    <!-- ✅ EXISTING Django‑rendered summaries — KEPT UNCHANGED -->
     <h2>Students by Program</h2>
     <table border="1">
         <tr>
@@ -55,6 +71,7 @@
         </tr>
         {% endfor %}
     </table>
+
     <hr>
 
     <h2>Students by Year Level</h2>
@@ -74,9 +91,11 @@
         </tr>
         {% endfor %}
     </table>
+
     <hr>
 
     <a href="{% url 'student_list' %}">Back to Student List</a>
+
     <script src="{% static 'registration/js/student_dashboard.js' %}"></script>
 </body>
 </html>
